@@ -8,7 +8,7 @@ Declarative deployment for **ML Operations Intelligence** resources: jobs, noteb
 |------|---------|
 | `databricks.yml` | Bundle manifest, variables, targets |
 | `resources/*.yml` | Job, pipeline, and other resource definitions |
-| `notebooks/` | Notebook sources referenced by jobs |
+| `notebooks/` | Notebook sources referenced by jobs (synced via `sync.paths`) |
 | `src/mlops_intelligence/` | Python package for wheel tasks (future) |
 
 ## Variables
@@ -17,7 +17,7 @@ Declarative deployment for **ML Operations Intelligence** resources: jobs, noteb
 |----------|-------------|
 | `catalog` | Unity Catalog name per environment |
 | `schema` | Default schema for platform tables |
-| `workspace_root` | Workspace deployment root for bundle artifacts |
+| `workspace_root` | Workspace deployment root (`${workspace.current_user.userName}`, not bare `current_user`) |
 
 ## Targets and Git mapping
 
@@ -28,6 +28,10 @@ Declarative deployment for **ML Operations Intelligence** resources: jobs, noteb
 | `prod` | `prod` | `mlops_intelligence_prod` | PR `dev` → `main` |
 
 Configure CLI profiles locally (`~/.databrickscfg`); never commit tokens or host secrets.
+
+## Notebook sync
+
+`sync.paths` includes `src/`, `notebooks/`, and `resources/` so bundle deploy uploads application code and notebooks alongside job definitions. Paths in job `notebook_task` must match files under `notebooks/` — see [notebooks/README.md](../../notebooks/README.md).
 
 ## Validation
 

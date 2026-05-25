@@ -10,18 +10,19 @@ include:
 
 sync:
   paths:
-    - .
+    - src
+    - notebooks
+    - resources
 
 variables:
   catalog:
-    description: Unity Catalog name for ML ops intelligence
     default: mlops_intelligence
   schema:
-    description: Default schema for platform tables
     default: ops
   workspace_root:
-    description: Workspace path prefix for bundle deployments
-    default: /Workspace/Users/${workspace.current_user}/.bundle/${bundle.name}/${bundle.target}
+    default: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+  cluster_policy_id:
+    default: ""
 
 targets:
   dev:

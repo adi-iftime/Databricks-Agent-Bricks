@@ -2,13 +2,10 @@ resources:
   jobs:
     ml_observability:
       name: "[${bundle.target}] mlops ml observability"
-      tags:
-        project: mlops_intelligence
-        component: ml_obs
       tasks:
         - task_key: stub
           notebook_task:
-            notebook_path: ../../notebooks/ml_obs/stub
+            notebook_path: ../../notebooks/ml_obs/stub.py
           job_cluster_key: mlops_shared
 
       job_clusters:
@@ -17,8 +14,3 @@ resources:
             spark_version: "15.4.x-scala2.12"
             node_type_id: "i3.xlarge"
             num_workers: 1
-            spark_conf:
-              spark.databricks.cluster.profile: singleNode
-              spark.master: local[*]
-            custom_tags:
-              ResourceClass: SingleNode

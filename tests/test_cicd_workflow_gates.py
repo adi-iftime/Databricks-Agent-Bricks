@@ -18,6 +18,10 @@ class TestCicdWorkflowGates(unittest.TestCase):
         self.assertIn("DATABRICKS_HOST", text)
         self.assertIn("DATABRICKS_TOKEN", text)
 
+    def test_cli_version_pinned_for_terraform_gpg_fix(self) -> None:
+        text = WORKFLOW.read_text()
+        self.assertIn("version: 0.299.2", text)
+
 
 if __name__ == "__main__":
     unittest.main()
