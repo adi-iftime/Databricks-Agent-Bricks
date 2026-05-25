@@ -1,0 +1,28 @@
+{
+  "runs": [
+    {
+      "run_id": 1001,
+      "job_id": 42,
+      "start_time": 1714500000000,
+      "end_time": 1714500120000,
+      "run_duration": 120000,
+      "state": {
+        "life_cycle_state": "TERMINATED",
+        "result_state": "SUCCESS"
+      }
+    },
+    {
+      "run_id": 1002,
+      "job_id": 42,
+      "start_time": 1714510000000,
+      "end_time": 1714510060000,
+      "run_duration": 60000,
+      "state": {
+        "life_cycle_state": "TERMINATED",
+        "result_state": "FAILED"
+      }
+    }
+  ],
+  "has_more": true,
+  "next_page_token": "token-page-2"
+}
