@@ -28,44 +28,65 @@ After a worker agent reports completion, you **must** run the PR verification pi
 
 ### 2. Trigger verification agents (PR-scoped)
 
-Dispatch **three** verification passes against the **Pull Request**, not ad-hoc local-only state:
+Dispatch **three** verification passes against the **Pull Request**, not ad-hoc local-only state. Trigger on PR **opened**, **updated** (new commits), or **marked ready for review**.
 
 | Agent | `subagent_type` | Scope |
 |-------|-----------------|--------|
 | QA Agent | `qa-agent` | Tests, coverage gaps, regression risk on the PR diff |
 | Security Agent | `security-agent` | Secrets, authz, dependencies, trust boundaries on the PR diff |
-| Review Agent | `code-review-agent` | Readability, architecture fit, maintainability on the PR diff |
+| Code Review Agent | `code-review-agent` | Readability, architecture fit, maintainability on the PR diff |
 
 **PR inputs for each dispatch (required):**
 
 - PR URL and PR number
 - Jira story key
 - Base branch (e.g. `main` or `dev`)
-- Instruction to use `gh pr diff <number>` or `gh pr checkout <number>` for review context — **do not** rely on uncommitted local-only changes as the review surface
+- Instruction to use `gh pr diff <number>` for review context — **do not** rely on uncommitted local-only changes
+- **Mandatory:** Each agent **must** post full verification using its standardized template via `gh pr comment <number>` — see each agent’s **Mandatory GitHub PR comment policy**
 
-Workers implementing fixes during verification stay **out of scope** unless a finding requires a follow-up story; verification agents **analyze and report**, they do not merge.
+Workers implementing fixes during verification stay **out of scope** unless a finding requires a follow-up story; verification agents **analyze, comment on GitHub, and report**; they do not merge.
 
-### 3. Collect and aggregate results
+### 3. Collect and aggregate results (GitHub PR comments required)
 
-Wait for all three agents to return. Build a **verification summary**:
+Wait for all three agents to return **and** confirm each posted a PR comment on GitHub:
 
-| Check | Status | Blocker? |
-|-------|--------|----------|
-| QA | `pass` / `fail` / `advisory` | **fail** blocks progression |
-| Security | `pass` / `fail` / `advisory` | **fail** (must-fix) blocks progression |
-| Review | `approve` / `request_changes` / `advisory` | **request_changes** on must-fix items blocks progression |
+```bash
+gh pr view <number> --comments
+# or gh api repos/{owner}/{repo}/issues/{number}/comments
+```
 
-- **Pass gate:** QA not `fail`, Security no must-fix `fail`, Review not `request_changes` on must-fix items.
-- Post the aggregated summary as a Jira comment on the story via MCP.
+A PR is **not fully validated** until:
+
+- [ ] **QA Agent** has commented on the PR (🧪 QA Agent Review)
+- [ ] **Security Agent** has commented on the PR (🔐 Security Agent Review)
+- [ ] **Code Review Agent** has commented on the PR (👀 Code Review Agent)
+
+If any agent returns findings **without** a GitHub PR comment, treat verification as **incomplete** — re-dispatch that agent with explicit instruction to post via `gh pr comment`.
+
+Build a **verification summary** from PR comment statuses:
+
+| Check | PR comment status | Blocker? |
+|-------|-------------------|----------|
+| QA | ✅ Approved / ⚠️ Changes Required / ❌ Rejected | **❌** or blocking **⚠️** blocks progression |
+| Security | ✅ Approved / ⚠️ Changes Required / ❌ Rejected | **❌** (must-fix) blocks progression |
+| Review | ✅ Approved / ⚠️ Changes Required / ❌ Rejected | blocking **⚠️** or **❌** blocks progression |
+
+- **Pass gate:** All three agents commented on the PR **and** none report blocking ❌ / must-fix ⚠️.
+- Post a short **orchestrator aggregate** as a fourth PR comment (optional) or Jira comment linking the three PR review comments.
 - On **fail:** keep story **In Review** or move back to **In Progress**; assign remediation to the original worker; **do not** start dependent stories.
 - On **pass:** story may proceed toward human merge approval; unlock **next runnable** units in the DAG.
+
+**Audit intent:** GitHub PR comment history is the compliance-ready record of AI-assisted multi-agent governance; Jira is supplementary traceability only.
 
 ### 4. Progression rule
 
 ```
-worker completes → PR created → QA + Security + Review on PR → all pass → next story
-                                      ↓ any fail
-                                 block + remediate same story
+worker completes → PR created/opened/updated
+       → QA + Security + Review each post gh pr comment on PR
+       → orchestrator confirms 3 PR comments exist + pass gate
+       → next story
+              ↓ any fail or missing PR comment
+       block + remediate same story (+ re-run verification after push)
 ```
 
 ## When invoked
@@ -84,7 +105,7 @@ worker completes → PR created → QA + Security + Review on PR → all pass �
 1. **Schedule** — Ordered waves or DAG diagram (text/mermaid), with parallel lanes marked.
 2. **Assignments** — Table: Story | Worker type | Paths | Depends on | Done when.
 3. **Conflict policy** — Serialized paths and merge owner if any.
-4. **Status template** — Markdown or table the parent session can update after each wave (include PR # and verification: `pending | qa | security | review | passed | failed`).
+4. **Status template** — Markdown or table per story: PR #; verification: `pending | qa_commented | security_commented | review_commented | passed | failed` (all three `_commented` required before `passed`).
 5. **Verification summary** — Per-PR aggregate from QA, Security, and Review agents with pass/fail gate outcome.
 6. **Release summary** — Short aggregate when requested.
 
