@@ -1,0 +1,92 @@
+name: Databricks deploy (promotion)
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: DAB target to deploy
+        required: true
+        type: choice
+        options:
+          - staging
+          - prod
+      git_ref:
+        description: Git branch or tag to deploy (prod must be main)
+        required: true
+        default: main
+        type: string
+
+concurrency:
+  group: databricks-deploy-promotion-${{ github.event.inputs.target }}
+  cancel-in-progress: false
+
+env:
+  DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+  DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+
+jobs:
+  validate-input:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate promotion inputs
+        env:
+          TARGET: ${{ github.event.inputs.target }}
+          GIT_REF: ${{ github.event.inputs.git_ref }}
+        run: |
+          set -euo pipefail
+          if [ -z "$GIT_REF" ]; then
+            echo "git_ref is required"
+            exit 1
+          fi
+          if [ "$TARGET" = "prod" ] && [ "$GIT_REF" != "main" ] && [ "$GIT_REF" != "master" ]; then
+            echo "Prod promotions must use git_ref main (or master)."
+            exit 1
+          fi
+          echo "Promotion approved: target=$TARGET git_ref=$GIT_REF"
+
+  deploy:
+    needs: validate-input
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.target }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.git_ref }}
+
+      - name: Set up Databricks CLI
+        uses: databricks/setup-cli@main
+        with:
+          version: 0.299.2
+
+      - name: Log deployment context
+        env:
+          TARGET: ${{ github.event.inputs.target }}
+          GIT_REF: ${{ github.event.inputs.git_ref }}
+        run: |
+          echo "git_sha=${{ github.sha }}"
+          echo "git_ref=$GIT_REF"
+          echo "workflow_run_id=${{ github.run_id }}"
+          echo "actor=${{ github.actor }}"
+          echo "bundle=mlops_intelligence"
+          echo "target=$TARGET"
+          {
+            echo "## Promotion deploy"
+            echo "- **target:** $TARGET"
+            echo "- **git_ref:** $GIT_REF"
+            echo "- **commit:** ${{ github.sha }}"
+            echo "- **actor:** ${{ github.actor }}"
+            echo "- **run:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Validate bundle before deploy
+        env:
+          TARGET: ${{ github.event.inputs.target }}
+        run: databricks bundle validate -t "$TARGET"
+
+      - name: Deploy bundle
+        env:
+          TARGET: ${{ github.event.inputs.target }}
+        run: databricks bundle deploy -t "$TARGET"
+
+      - name: Post-deploy smoke (placeholder)
+        run: echo "Post-deploy smoke hooks added in later stories (jobs/UC verification)."

@@ -21,6 +21,10 @@ ML Operations Intelligence delivery runs through [`.github/workflows/databricks-
 | `databricks-auth` | `databricks current-user me` using `DATABRICKS_HOST` + `DATABRICKS_TOKEN` repo secrets |
 | `deploy` | Disabled here; dev auto-deploy in [databricks-deploy-dev.yml](../../.github/workflows/databricks-deploy-dev.yml) |
 
+## Promotion (staging / prod)
+
+Manual gated deploys: [databricks-deploy-promotion.yml](../../.github/workflows/databricks-deploy-promotion.yml) — see [promotion.md](promotion.md) (SCRUM-124).
+
 ## Authentication
 
 Repository secrets **`DATABRICKS_HOST`** and **`DATABRICKS_TOKEN`** — see [databricks-auth.md](databricks-auth.md).
@@ -44,6 +48,8 @@ One run per branch ref (`databricks-cicd-<ref>`); newer runs cancel in-progress 
 - SCRUM-120 — this workflow scaffold
 - SCRUM-121 — Databricks SP / OIDC auth in GHA
 - SCRUM-122 — `databricks bundle validate` in CI
+- SCRUM-123 — auto deploy to dev on merge
+- SCRUM-124 — manual promotion to staging/prod
 - SCRUM-119 — layout validation in `cursor-framework-ci.yml`
 
 ## Framework CI
