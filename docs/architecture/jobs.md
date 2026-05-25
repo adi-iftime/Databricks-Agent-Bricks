@@ -6,10 +6,12 @@ Core Lakeflow jobs declared in the Asset Bundle under `resources/jobs/`. Tasks a
 
 | Resource key | Job name pattern | Notebook stub | Purpose |
 |--------------|------------------|---------------|---------|
-| `ingestion` | `[${bundle.target}] mlops ingestion` | `notebooks/ingestion/stub.py` | Bronze ingestion |
-| `ml_observability` | `[${bundle.target}] mlops ml observability` | `notebooks/ml_obs/stub.py` | ML metrics collection |
-| `anomaly_detection` | `[${bundle.target}] mlops anomaly detection` | `notebooks/anomaly/stub.py` | Anomaly scoring |
-| `agent_analysis` | `[${bundle.target}] mlops agent analysis` | `notebooks/agent/stub.py` | Agent RCA orchestration |
+| `ingestion` | `[${bundle.target}] mlops ingestion` | `notebooks/ingestion/stub` | Bronze ingestion |
+| `ml_observability` | `[${bundle.target}] mlops ml observability` | `notebooks/ml_obs/stub` | ML metrics collection |
+| `anomaly_detection` | `[${bundle.target}] mlops anomaly detection` | `notebooks/anomaly/stub` | Anomaly scoring |
+| `agent_analysis` | `[${bundle.target}] mlops agent analysis` | `notebooks/agent/stub` | Agent RCA orchestration |
+
+Governance labels are on cluster `custom_tags` (not job-level `tags`, which breaks `bundle validate` on current CLI).
 
 ## Bundle files
 

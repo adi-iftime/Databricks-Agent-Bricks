@@ -2,9 +2,6 @@ resources:
   jobs:
     anomaly_detection:
       name: "[${bundle.target}] mlops anomaly detection"
-      tags:
-        project: mlops_intelligence
-        component: anomaly
       tasks:
         - task_key: stub
           notebook_task:
@@ -22,3 +19,5 @@ resources:
               spark.master: local[*]
             custom_tags:
               ResourceClass: SingleNode
+              project: mlops_intelligence
+              component: anomaly
