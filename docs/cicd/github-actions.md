@@ -25,6 +25,16 @@ ML Operations Intelligence delivery runs through [`.github/workflows/databricks-
 
 Repository secrets **`DATABRICKS_HOST`** and **`DATABRICKS_TOKEN`** — see [databricks-auth.md](databricks-auth.md).
 
+## Required status checks
+
+Before merging to `dev`, ensure these jobs pass:
+
+- `unit-test`
+- `databricks-auth`
+- `bundle-validate`
+
+Configure branch protection on `dev` to require the **Databricks CI/CD** workflow checks when secrets are configured.
+
 ## Concurrency
 
 One run per branch ref (`databricks-cicd-<ref>`); newer runs cancel in-progress jobs on the same ref.
