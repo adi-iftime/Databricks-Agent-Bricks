@@ -19,13 +19,23 @@ Declarative deployment for **ML Operations Intelligence** resources: jobs, noteb
 | `schema` | Default schema for platform tables |
 | `workspace_root` | Workspace deployment root for bundle artifacts |
 
-Environment-specific overrides are added in **SCRUM-126** (`dev`, `staging`, `prod` targets).
+## Targets and Git mapping
+
+| DAB target | Workspace profile | Catalog variable | Git promotion |
+|------------|-------------------|------------------|---------------|
+| `dev` (default) | `dev` | `mlops_intelligence_dev` | PRs merge to `dev` |
+| `staging` | `staging` | `mlops_intelligence_staging` | Promote from `dev` |
+| `prod` | `prod` | `mlops_intelligence_prod` | PR `dev` → `main` |
+
+Configure CLI profiles locally (`~/.databrickscfg`); never commit tokens or host secrets.
 
 ## Validation
 
 ```bash
 # Requires Databricks CLI + configured profile (see docs/git-workflow.md)
-databricks bundle validate
+databricks bundle validate -t dev
+databricks bundle validate -t staging
+databricks bundle validate -t prod
 ```
 
 CI will run `bundle validate` in **Epic 2** (SCRUM-122). Until then, `tests/test_databricks_bundle.py` asserts manifest structure in PRs.

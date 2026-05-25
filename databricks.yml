@@ -1,5 +1,5 @@
-# ML Operations Intelligence — Databricks Asset Bundle (SCRUM-125)
-# Targets dev/staging/prod: SCRUM-126 | Jobs: SCRUM-127
+# ML Operations Intelligence — Databricks Asset Bundle
+# Jobs: SCRUM-127 | UC SQL: SCRUM-130+
 
 bundle:
   name: mlops_intelligence
@@ -23,11 +23,27 @@ variables:
     default: /Workspace/Users/${workspace.current_user}/.bundle/${bundle.name}/${bundle.target}
 
 targets:
-  default:
+  dev:
     mode: development
     default: true
     workspace:
       profile: dev
     variables:
       catalog: mlops_intelligence_dev
+      schema: ops
+
+  staging:
+    mode: production
+    workspace:
+      profile: staging
+    variables:
+      catalog: mlops_intelligence_staging
+      schema: ops
+
+  prod:
+    mode: production
+    workspace:
+      profile: prod
+    variables:
+      catalog: mlops_intelligence_prod
       schema: ops
