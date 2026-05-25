@@ -2,8 +2,9 @@ name: Cursor framework CI
 
 on:
   pull_request:
+    branches: [main, master, dev]
   push:
-    branches: [main, master]
+    branches: [main, master, dev]
 
 jobs:
   hooks-and-policies:
@@ -23,6 +24,9 @@ jobs:
 
       - name: Ruff check (hook modules)
         run: ruff check .cursor/hooks
+
+      - name: Repository layout validation (SCRUM-119)
+        run: python3 -m unittest tests.test_repo_structure -v
 
       - name: Hook policy unit tests
         run: python3 -m unittest discover -s tests -p "test_*.py" -v

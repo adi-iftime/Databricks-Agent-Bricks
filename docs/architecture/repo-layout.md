@@ -33,6 +33,7 @@ Deployment follows [Databricks Asset Bundles](https://docs.databricks.com/dev-to
 | Agent orchestration, Jira workflow | `.cursor/` | Framework template |
 | Data pipelines, agent runtime | `src/`, `notebooks/`, `resources/` | ML ops platform stories |
 | Hook/policy CI | `tests/test_hook_policies.py`, `cursor-framework-ci.yml` | Must keep passing on every PR |
+| Repo layout CI | `tests/test_repo_structure.py` (dedicated workflow step) | Fails PR if scaffold paths missing (SCRUM-119) |
 
 ## Evolution from template
 
@@ -45,6 +46,10 @@ Branching (`main` / `dev` / `feature/*`) and protection rules: [docs/git-workflo
 ## Ownership
 
 Parallel agent lanes: [`.github/CODEOWNERS`](../../.github/CODEOWNERS) and [CONTRIBUTING.md](../../CONTRIBUTING.md#ownership-lanes-codeowners).
+
+## CI validation
+
+[`.github/workflows/cursor-framework-ci.yml`](../../.github/workflows/cursor-framework-ci.yml) runs on pull requests and pushes to `main`, `master`, and `dev`. The **Repository layout validation** step executes `tests/test_repo_structure.py` so missing scaffold directories fail before merge.
 
 ## Related Jira epics
 
