@@ -22,14 +22,21 @@ class TestJobResources(unittest.TestCase):
     def test_jobs_documentation_exists(self) -> None:
         self.assertTrue((REPO_ROOT / "docs/architecture/jobs.md").is_file())
 
+    def test_jobs_use_serverless_notebook_tasks(self) -> None:
+        """Dev workspace is serverless-only; classic job_clusters fail deploy."""
+        for job_file in JOBS_DIR.glob("*.job.yml"):
+            text = job_file.read_text()
+            self.assertIn("notebook_task:", text, job_file.name)
+            self.assertNotIn("job_clusters:", text, job_file.name)
+            self.assertNotIn("job_cluster_key:", text, job_file.name)
+
     def test_jobs_avoid_bundle_validate_map_interpolation_traps(self) -> None:
-        """Job-level tags, dotted spark_conf, and SingleNode custom_tags break bundle validate."""
+        """Job-level tags and dotted spark_conf break bundle validate."""
         for job_file in JOBS_DIR.glob("*.job.yml"):
             text = job_file.read_text()
             self.assertNotIn("spark_conf:", text, job_file.name)
             self.assertNotIn("\n      tags:", text, job_file.name)
             self.assertNotIn("custom_tags:", text, job_file.name)
-            self.assertIn("num_workers: 1", text, job_file.name)
 
     def test_bundle_includes_jobs_path(self) -> None:
         text = (REPO_ROOT / "databricks.yml").read_text()

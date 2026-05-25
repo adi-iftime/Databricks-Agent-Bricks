@@ -42,7 +42,7 @@ databricks bundle validate -t staging
 databricks bundle validate -t prod
 ```
 
-CI will run `bundle validate` in **Epic 2** (SCRUM-122). Until then, `tests/test_databricks_bundle.py` asserts manifest structure in PRs.
+CI runs `databricks bundle validate -t dev` on every PR via [databricks-cicd.yml](../../.github/workflows/databricks-cicd.yml) (SCRUM-122). Pushes to `dev` deploy via [databricks-deploy-dev.yml](../../.github/workflows/databricks-deploy-dev.yml) (SCRUM-123).
 
 ## Related stories
 
