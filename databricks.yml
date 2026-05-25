@@ -10,7 +10,9 @@ include:
 
 sync:
   paths:
-    - .
+    - src
+    - notebooks
+    - resources
 
 variables:
   catalog:
