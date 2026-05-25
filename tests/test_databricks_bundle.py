@@ -1,6 +1,7 @@
 """Databricks bundle manifest checks for SCRUM-125/126."""
 
 from pathlib import Path
+import re
 import unittest
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -30,6 +31,14 @@ class TestDatabricksBundle(unittest.TestCase):
 
     def test_documentation_exists(self) -> None:
         self.assertTrue((REPO_ROOT / "docs/architecture/dab.md").is_file())
+
+    def test_workspace_current_user_uses_string_field(self) -> None:
+        """Bare ${workspace.current_user} is a map and breaks bundle validate."""
+        text = BUNDLE_PATH.read_text()
+        self.assertIsNone(
+            re.search(r"\$\{workspace\.current_user\}(?!\.)", text),
+            "Use ${workspace.current_user.userName} in string substitutions",
+        )
 
 
 if __name__ == "__main__":

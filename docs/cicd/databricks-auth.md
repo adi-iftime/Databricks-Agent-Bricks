@@ -21,7 +21,9 @@ env:
   DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
 
 steps:
-  - uses: databricks/setup-cli@v0.267.0
+  - uses: databricks/setup-cli@main
+    with:
+      version: 0.299.2
   - run: databricks current-user me
 ```
 
@@ -30,6 +32,26 @@ The **`databricks-auth`** job runs `databricks current-user me` on every PR/push
 ## Local development
 
 Use CLI profiles in `~/.databrickscfg` (see [dab.md](../architecture/dab.md) target profiles). Do not copy production tokens into the repository.
+
+### Terraform download / expired GPG key
+
+If `databricks bundle validate` or `deploy` fails with:
+
+```text
+error downloading Terraform: unable to verify checksums signature: openpgp: key expired
+```
+
+upgrade the Databricks CLI to a patched release (for v0.299.x use **v0.299.2** or later). See [databricks/cli#5022](https://github.com/databricks/cli/issues/5022).
+
+```bash
+databricks --version   # e.g. v0.299.0 → needs patch
+# Homebrew example:
+brew upgrade databricks
+# Or install script:
+curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh -s -- -v 0.299.2
+```
+
+CI pins `0.299.2` via `databricks/setup-cli` in workflow files.
 
 ## Permissions
 
