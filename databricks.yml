@@ -1,0 +1,7 @@
+# Databricks Asset Bundle — placeholder (SCRUM-115)
+# Target configuration, variables, and job resources: SCRUM-125, SCRUM-126, SCRUM-127
+
+bundle:
+  name: mlops_intelligence
+
+# Targets (dev / staging / prod) and resources are added in Epic 3 stories.
