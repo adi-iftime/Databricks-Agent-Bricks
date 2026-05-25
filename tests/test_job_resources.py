@@ -35,6 +35,16 @@ class TestJobResources(unittest.TestCase):
         text = (REPO_ROOT / "databricks.yml").read_text()
         self.assertIn("resources/jobs/*.yml", text)
 
+    def test_job_notebook_paths_include_extension(self) -> None:
+        for job_file in JOBS_DIR.glob("*.job.yml"):
+            text = job_file.read_text()
+            self.assertIn("notebook_path:", text, job_file.name)
+            self.assertRegex(
+                text,
+                r"notebook_path: \.\./\.\./notebooks/[-\w]+/stub\.py",
+                job_file.name,
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

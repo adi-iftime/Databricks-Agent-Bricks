@@ -5,7 +5,7 @@ resources:
       tasks:
         - task_key: stub
           notebook_task:
-            notebook_path: ../../notebooks/anomaly/stub
+            notebook_path: ../../notebooks/anomaly/stub.py
           job_cluster_key: mlops_shared
 
       job_clusters:

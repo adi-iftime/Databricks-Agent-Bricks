@@ -5,7 +5,7 @@ resources:
       tasks:
         - task_key: stub
           notebook_task:
-            notebook_path: ../../notebooks/ingestion/stub
+            notebook_path: ../../notebooks/ingestion/stub.py
           job_cluster_key: mlops_shared
 
       job_clusters:
