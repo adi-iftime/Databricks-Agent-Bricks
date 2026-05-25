@@ -2,9 +2,6 @@ resources:
   jobs:
     ingestion:
       name: "[${bundle.target}] mlops ingestion"
-      tags:
-        project: mlops_intelligence
-        component: ingestion
       tasks:
         - task_key: stub
           notebook_task:
@@ -23,3 +20,5 @@ resources:
               spark.master: local[*]
             custom_tags:
               ResourceClass: SingleNode
+              project: mlops_intelligence
+              component: ingestion
