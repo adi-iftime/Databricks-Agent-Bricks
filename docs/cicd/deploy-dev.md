@@ -37,4 +37,3 @@ Avoid `bundle deploy --force` unless documented in an incident runbook.
 
 - [databricks-auth.md](databricks-auth.md)
 - [github-actions.md](github-actions.md)
-- [promotion.md](promotion.md) (SCRUM-124)

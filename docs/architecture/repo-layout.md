@@ -23,7 +23,7 @@ This repository is the **GitHub single source of truth** for the ML Operations I
 Deployment follows [Databricks Asset Bundles](https://docs.databricks.com/dev-tools/bundles/index.html):
 
 - `databricks bundle validate` / `deploy` from repo root — see [dab.md](dab.md)
-- Environment targets: `dev`, `staging`, `prod` (SCRUM-126)
+- Environment target: `dev` only (SCRUM-126 simplified)
 - Jobs and notebooks referenced from `resources/` and `notebooks/`
 
 ## Framework vs application boundaries

@@ -63,7 +63,7 @@ Platform changes (Unity Catalog, DAB, jobs, notebooks) must document operational
 | Section | What to include |
 |---------|-----------------|
 | **Unity Catalog impact** | Catalogs, schemas, tables, grants; additive vs breaking |
-| **Databricks Asset Bundle** | Resources changed, target (`dev`/`staging`/`prod`), `bundle validate` command |
+| **Databricks Asset Bundle** | Resources changed, target `dev`, `bundle validate -t dev` |
 | **Rollout notes** | Deploy order, monitoring, **rollback** steps |
 | **Testing performed** | `unittest`, SQL checks, notebook smoke paths |
 

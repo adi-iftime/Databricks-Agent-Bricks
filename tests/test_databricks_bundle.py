@@ -21,13 +21,12 @@ class TestDatabricksBundle(unittest.TestCase):
         self.assertIn("catalog:", text)
         self.assertIn("targets:", text)
 
-    def test_multi_environment_targets(self) -> None:
+    def test_dev_target_configured(self) -> None:
         text = BUNDLE_PATH.read_text()
-        for target in ("dev:", "staging:", "prod:"):
-            self.assertIn(target, text)
+        self.assertIn("dev:", text)
         self.assertIn("mlops_intelligence_dev", text)
-        self.assertIn("mlops_intelligence_staging", text)
-        self.assertIn("mlops_intelligence_prod", text)
+        self.assertNotIn("staging:", text)
+        self.assertNotIn("prod:", text)
 
     def test_documentation_exists(self) -> None:
         self.assertTrue((REPO_ROOT / "docs/architecture/dab.md").is_file())

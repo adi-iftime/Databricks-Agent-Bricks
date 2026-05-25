@@ -68,7 +68,7 @@ python3 -m unittest discover -s tests -p "test_*.py" -v
 
 ## Risks and limitations
 
-- Deploy to staging/prod blocked until SCRUM-126 targets exist.
+- Deploy uses `dev` target only (`databricks bundle deploy -t dev` on merge to `dev`).
 
 ## Dependencies
 

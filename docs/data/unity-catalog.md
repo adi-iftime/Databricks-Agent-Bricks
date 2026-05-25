@@ -7,10 +7,8 @@ Governed storage for pipeline telemetry, system metrics, anomaly features, and a
 | DAB target | Git branch flow | Catalog name |
 |------------|-----------------|--------------|
 | `dev` | `feature/*` → `dev` | `mlops_intelligence_dev` |
-| `staging` | `dev` → staging promote | `mlops_intelligence_staging` |
-| `prod` | `dev` → `main` | `mlops_intelligence_prod` |
 
-Catalog names align with [`databricks.yml`](../../databricks.yml) target variables (SCRUM-126).
+Catalog name aligns with the `dev` target in [`databricks.yml`](../../databricks.yml).
 
 ## Schema layout
 
@@ -36,4 +34,3 @@ Deploy via SQL warehouse or bundle SQL task (SCRUM-127+). When applying manually
 
 - SCRUM-130 — catalog + schemas (this document)
 - SCRUM-131 — `pipeline_runs`, `system_metrics` tables
-- SCRUM-126 — per-environment catalog variables
