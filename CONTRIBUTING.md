@@ -53,3 +53,26 @@ ruff check .cursor/hooks
 ```
 
 CI runs the same checks in [.github/workflows/cursor-framework-ci.yml](.github/workflows/cursor-framework-ci.yml).
+
+## ML Operations pull requests
+
+Platform changes (Unity Catalog, DAB, jobs, notebooks) must document operational impact in the PR. Use [.github/pull_request_template.md](.github/pull_request_template.md) and fill every section.
+
+### Required sections (platform PRs)
+
+| Section | What to include |
+|---------|-----------------|
+| **Unity Catalog impact** | Catalogs, schemas, tables, grants; additive vs breaking |
+| **Databricks Asset Bundle** | Resources changed, target (`dev`/`staging`/`prod`), `bundle validate` command |
+| **Rollout notes** | Deploy order, monitoring, **rollback** steps |
+| **Testing performed** | `unittest`, SQL checks, notebook smoke paths |
+
+### Pre-merge checklist
+
+1. Jira key in PR title and description.
+2. One story per PR; `OWNERSHIP=` matches CODEOWNERS lane.
+3. Tests pass locally: `python3 -m unittest discover -s tests -p "test_*.py" -v`.
+4. No secrets in `databricks.yml`, workflows, or docs.
+5. For UC DDL: prefer additive migrations; document breaking changes and backfill.
+
+**Example filled PR:** [docs/contributing/example-pr-description.md](docs/contributing/example-pr-description.md).
