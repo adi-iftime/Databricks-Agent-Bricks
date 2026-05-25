@@ -11,14 +11,14 @@ Core Lakeflow jobs declared in the Asset Bundle under `resources/jobs/`. Tasks a
 | `anomaly_detection` | `[${bundle.target}] mlops anomaly detection` | `notebooks/anomaly/stub.py` | Anomaly scoring |
 | `agent_analysis` | `[${bundle.target}] mlops agent analysis` | `notebooks/agent/stub.py` | Agent RCA orchestration |
 
-Stub job clusters use `num_workers: 1` with no `custom_tags` or `spark_conf`.
+Stub jobs use **serverless compute**: notebook tasks only, with no `job_clusters` / `new_cluster` (required for workspaces that only allow serverless).
 
 `bundle validate` fails with `cannot interpolate non-primitive value of type map into string` when you use:
 
 - `${workspace.current_user}` in a string (use `${workspace.current_user.userName}` — the bare object is a map)
 - job-level `tags`, dotted `spark_conf` keys, or incomplete single-node `custom_tags` / `spark_conf` pairs
 
-Re-enable governance labels and single-node clusters in a follow-up using `type: complex` variables or nested `spark_conf` once validate is green.
+Classic cluster configs and governance tags can return in a follow-up when a classic-capable workspace or approved serverless environments are available.
 
 ## Bundle files
 
