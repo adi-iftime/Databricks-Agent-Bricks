@@ -42,6 +42,10 @@ The repo started as **Databricks-Agent-Bricks** (Cursor template). Platform stor
 
 Branching (`main` / `dev` / `feature/*`) and protection rules: [docs/git-workflow.md](../git-workflow.md).
 
+## Ownership
+
+Parallel agent lanes: [`.github/CODEOWNERS`](../../.github/CODEOWNERS) and [CONTRIBUTING.md](../../CONTRIBUTING.md#ownership-lanes-codeowners).
+
 ## Related Jira epics
 
 - Epic 1 (SCRUM-103): GitHub structure — this document

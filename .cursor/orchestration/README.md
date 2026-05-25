@@ -11,3 +11,5 @@ Optional files for **manual** multi-agent discipline. They are **not** read by t
 [`../hooks/policies/orchestration_agents.json`](../hooks/policies/orchestration_agents.json) documents recommended **planning** vs **implementation** `subagent_type` conventions for teams using the Task tool. Nothing in the current hook set enforces Jira keys or `OWNERSHIP=` at the editor.
 
 **Jira:** Use the **Atlassian MCP** per [`.cursor/rules/jira-atlassian-mcp.mdc`](../rules/jira-atlassian-mcp.mdc).
+
+**CODEOWNERS:** Path ownership for parallel workers is defined in [`.github/CODEOWNERS`](../../.github/CODEOWNERS); see [CONTRIBUTING.md](../../CONTRIBUTING.md) for `OWNERSHIP=` mapping.

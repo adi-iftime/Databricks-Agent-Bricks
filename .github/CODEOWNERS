@@ -1,0 +1,33 @@
+# CODEOWNERS — ML Operations Intelligence (SCRUM-117)
+# Replace @adi-iftime with GitHub team handles (e.g. @org/mlops-platform) when available.
+# See CONTRIBUTING.md for mapping from Task OWNERSHIP= to these paths.
+
+# --- Cursor SDLC framework (distinct lane) ---
+/.cursor/                           @adi-iftime
+
+# --- CI/CD and GitHub governance ---
+/.github/                           @adi-iftime
+
+# --- Databricks Asset Bundle ---
+/databricks.yml                     @adi-iftime
+
+# --- Platform Python package ---
+/src/mlops_intelligence/            @adi-iftime
+
+# Future subpackages (uncomment and assign teams when directories exist):
+# /src/mlops_intelligence/ingestion/   @adi-iftime
+# /src/mlops_intelligence/ml_obs/      @adi-iftime
+# /src/mlops_intelligence/anomaly/     @adi-iftime
+# /src/mlops_intelligence/agent/       @adi-iftime
+# /src/mlops_intelligence/governance/  @adi-iftime
+# /src/mlops_intelligence/agentops/    @adi-iftime
+
+# --- Deployable assets ---
+/notebooks/                         @adi-iftime
+/resources/                         @adi-iftime
+
+# --- Documentation ---
+/docs/                              @adi-iftime
+
+# --- Tests (hook policies + platform) ---
+/tests/                             @adi-iftime
