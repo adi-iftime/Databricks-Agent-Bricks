@@ -13,8 +13,4 @@ resources:
           new_cluster:
             spark_version: "15.4.x-scala2.12"
             node_type_id: "i3.xlarge"
-            num_workers: 0
-            custom_tags:
-              ResourceClass: SingleNode
-              project: mlops_intelligence
-              component: ingestion
+            num_workers: 1
