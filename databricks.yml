@@ -20,7 +20,7 @@ variables:
   schema:
     default: ops
   workspace_root:
-    default: /Workspace/Users/${workspace.current_user}/.bundle/${bundle.name}/${bundle.target}
+    default: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
   cluster_policy_id:
     default: ""
 

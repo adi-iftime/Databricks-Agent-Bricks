@@ -17,7 +17,7 @@ Declarative deployment for **ML Operations Intelligence** resources: jobs, noteb
 |----------|-------------|
 | `catalog` | Unity Catalog name per environment |
 | `schema` | Default schema for platform tables |
-| `workspace_root` | Workspace deployment root for bundle artifacts |
+| `workspace_root` | Workspace deployment root (`${workspace.current_user.userName}`, not bare `current_user`) |
 
 ## Targets and Git mapping
 

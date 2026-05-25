@@ -11,11 +11,12 @@ Core Lakeflow jobs declared in the Asset Bundle under `resources/jobs/`. Tasks a
 | `anomaly_detection` | `[${bundle.target}] mlops anomaly detection` | `notebooks/anomaly/stub` | Anomaly scoring |
 | `agent_analysis` | `[${bundle.target}] mlops agent analysis` | `notebooks/agent/stub` | Agent RCA orchestration |
 
-Stub job clusters use `num_workers: 1` with no `custom_tags` or `spark_conf`. The current Databricks CLI fails `bundle validate` with `cannot interpolate non-primitive value of type map into string` when you use any of:
+Stub job clusters use `num_workers: 1` with no `custom_tags` or `spark_conf`.
 
-- job-level `tags` (map field coerced into string interpolation)
-- `spark_conf` keys containing dots (e.g. `spark.databricks.cluster.profile`)
-- `custom_tags: ResourceClass: SingleNode` without the full single-node `spark_conf` pair (triggers the single-node mutator)
+`bundle validate` fails with `cannot interpolate non-primitive value of type map into string` when you use:
+
+- `${workspace.current_user}` in a string (use `${workspace.current_user.userName}` — the bare object is a map)
+- job-level `tags`, dotted `spark_conf` keys, or incomplete single-node `custom_tags` / `spark_conf` pairs
 
 Re-enable governance labels and single-node clusters in a follow-up using `type: complex` variables or nested `spark_conf` once validate is green.
 
