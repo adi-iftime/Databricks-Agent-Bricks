@@ -34,7 +34,8 @@ Apply via SQL warehouse or bundle SQL task. Run `00_catalog.sql` first, then num
 ## Security
 
 - No broad `PUBLIC` read on `silver_ops` / `gold_ops`
-- Grants and service principals: Epic 10 (SCRUM-163+)
+- RBAC grants: [`docs/security/uc-rbac.md`](../security/uc-rbac.md) and [`resources/grants/00_dev_grants.sql`](../../resources/grants/00_dev_grants.sql) (SCRUM-133)
+- Audit and lineage tags: [`docs/security/audit-lineage.md`](../security/audit-lineage.md) (SCRUM-134)
 - Secrets never stored in SQL files
 
 ## Related stories
