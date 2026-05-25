@@ -21,7 +21,9 @@ Repository default is empty — jobs deploy without `policy_id` until your team 
 
 ## Job attachment
 
-After `cluster_policy_id` is set on a target, add to each job `new_cluster` block in `resources/jobs/*.job.yml`:
+Stub jobs on the dev workspace use **serverless notebook tasks** (no `job_clusters`). `cluster_policy_id` applies when jobs use classic `new_cluster` blocks again.
+
+When adding classic clusters, set the target variable and attach:
 
 ```yaml
 policy_id: "${var.cluster_policy_id}"
@@ -31,7 +33,7 @@ Do not add `policy_id` while the variable default is empty — bundle validate f
 
 ## Serverless
 
-Prefer serverless or policy-constrained single-node clusters for stub jobs; revisit sizing in Epic 7–9 implementation stories.
+Dev workspace requires serverless compute for job deploy. Stub jobs omit `job_clusters`; revisit policies when classic or governed serverless environments are introduced in Epic 7–9.
 
 ## Related
 
