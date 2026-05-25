@@ -75,22 +75,23 @@ jobs:
         run: databricks current-user me
 
   bundle-validate:
-    needs: setup
+    needs: [setup, databricks-auth]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
       - name: Bundle manifest structure check
-        run: python3 -m unittest tests.test_databricks_bundle -v
+        run: python3 -m unittest tests.test_databricks_bundle tests.test_job_resources -v
 
-      - name: Databricks bundle validate (requires auth)
-        run: |
-          echo "Live 'databricks bundle validate' enabled in SCRUM-122 after auth merge."
-          echo "Auth uses repository secrets DATABRICKS_HOST and DATABRICKS_TOKEN (SCRUM-121)."
+      - name: Set up Databricks CLI
+        uses: databricks/setup-cli@v0.267.0
+
+      - name: Databricks bundle validate (dev target)
+        run: databricks bundle validate -t dev
 
   deploy:
     needs: [lint, unit-test, databricks-auth, bundle-validate]
     if: false
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Deploy gated until SCRUM-122 validate gate and deploy stories."
+      - run: echo "Deploy uses databricks-deploy-dev.yml on push to dev (SCRUM-123)."

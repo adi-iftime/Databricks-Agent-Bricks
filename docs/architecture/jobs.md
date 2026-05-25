@@ -13,6 +13,8 @@ Core Lakeflow jobs declared in the Asset Bundle under `resources/jobs/`. Tasks a
 
 Governance labels are on cluster `custom_tags` (not job-level `tags`, which breaks `bundle validate` on current CLI).
 
+Use `num_workers: 0` for single-node stub clusters. Do **not** use `spark_conf` keys containing dots (e.g. `spark.databricks.cluster.profile`) — the bundle CLI mis-parses them and fails validate with `cannot interpolate non-primitive value of type map into string`.
+
 ## Bundle files
 
 | File | Jobs defined |
