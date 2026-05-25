@@ -1,4 +1,4 @@
-"""Databricks bundle manifest checks for SCRUM-125."""
+"""Databricks bundle manifest checks for SCRUM-125/126."""
 
 from pathlib import Path
 import unittest
@@ -19,6 +19,14 @@ class TestDatabricksBundle(unittest.TestCase):
         self.assertIn("variables:", text)
         self.assertIn("catalog:", text)
         self.assertIn("targets:", text)
+
+    def test_multi_environment_targets(self) -> None:
+        text = BUNDLE_PATH.read_text()
+        for target in ("dev:", "staging:", "prod:"):
+            self.assertIn(target, text)
+        self.assertIn("mlops_intelligence_dev", text)
+        self.assertIn("mlops_intelligence_staging", text)
+        self.assertIn("mlops_intelligence_prod", text)
 
     def test_documentation_exists(self) -> None:
         self.assertTrue((REPO_ROOT / "docs/architecture/dab.md").is_file())
