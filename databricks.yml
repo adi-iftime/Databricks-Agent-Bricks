@@ -24,6 +24,9 @@ variables:
   workspace_root:
     description: Workspace path prefix for bundle deployments
     default: /Workspace/Users/${workspace.current_user}/.bundle/${bundle.name}/${bundle.target}
+  cluster_policy_id:
+    description: Optional cluster policy ID for job clusters (set per target when provisioned)
+    default: ""
 
 targets:
   dev:
