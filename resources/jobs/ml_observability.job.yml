@@ -14,6 +14,7 @@ resources:
       job_clusters:
         - job_cluster_key: mlops_shared
           new_cluster:
+            policy_id: ${var.cluster_policy_id}
             spark_version: "15.4.x-scala2.12"
             node_type_id: "i3.xlarge"
             num_workers: 1
