@@ -1,0 +1,32 @@
+---
+description: Production code changes require automated tests covering behavior, edges, nulls, errors, and critical logic—no approval without adequate coverage.
+alwaysApply: true
+---
+
+# Mandatory tests
+
+All production code changes must include appropriate automated tests. Tests should validate expected behavior, edge cases, null handling, error handling, and critical business logic. Production-ready implementations without testing coverage should not be approved.
+
+Apply this rule when:
+
+- implementing new functionality
+- modifying business logic
+- creating APIs
+- modifying data pipelines
+- updating distributed systems
+- reviewing pull requests
+- validating production readiness
+
+## Agent behavior
+
+- For each change set: add or update tests in the same PR unless the user documents an accepted exception (e.g. generated-only paths with an alternative verification plan).
+- Prefer fast, deterministic unit tests at boundaries; add integration or pipeline tests when behavior spans services, IO, or Spark/Delta.
+- Call out missing coverage explicitly in review instead of treating it as optional.
+
+## Example
+
+```text
+❌ BAD — New endpoint + core branch logic merged with “tests later” or only manual smoke
+
+✅ GOOD — Same PR includes request/response and auth failure tests, null/validation cases, and at least one regression for the critical branch
+```

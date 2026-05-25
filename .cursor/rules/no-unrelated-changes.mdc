@@ -1,0 +1,30 @@
+---
+description: Touch only files and edits required for the assigned work—no drive-by refactors, format sweeps, deps, or architecture unless explicitly asked or approved.
+alwaysApply: true
+---
+
+# No unrelated changes
+
+Agents may only modify files directly related to assigned implementation work. Unrelated refactors, formatting changes, dependency upgrades, or architecture modifications outside the implementation scope should be avoided unless explicitly requested or approved.
+
+Apply this rule when:
+
+- modifying source code
+- creating pull requests
+- reviewing implementation scope
+- executing parallel agent work
+- validating pull request boundaries
+
+## Agent behavior
+
+- Before editing: confirm each path and change supports the stated task; defer anything else to a separate change or ask the user.
+- Allowed without extra approval: minimal edits strictly required by the task (types, imports, call sites for the touched feature).
+- Avoid: repo-wide formatters, renaming unrelated symbols, version bumps, config churn, or “while we’re here” cleanups.
+
+## Example
+
+```text
+❌ BAD — Task: fix login error message → also reformat entire package, bump lodash, rename unrelated helpers
+
+✅ GOOD — Task: fix login error message → only login flow files + tests for that behavior
+```

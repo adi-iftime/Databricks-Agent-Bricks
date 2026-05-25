@@ -1,0 +1,17 @@
+{
+  "description": "Task tool orchestration: planning agents skip Jira+OWNERSHIP; implementation and unknown agents require them. Add new types explicitly — unknown defaults to implementation (strict).",
+  "planning_subagent_types": [
+    "technical-planning-agent",
+    "orchestrator-agent",
+    "qa-agent",
+    "security-agent",
+    "documentation-agent"
+  ],
+  "implementation_subagent_types": [
+    "data-engineering-agent",
+    "backend-agent",
+    "frontend-agent",
+    "data-scientist-agent",
+    "data-analyst-agent"
+  ]
+}

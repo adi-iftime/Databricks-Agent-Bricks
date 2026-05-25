@@ -1,0 +1,28 @@
+name: Cursor framework CI
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+
+jobs:
+  hooks-and-policies:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dev tools (optional lint)
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Ruff check (hook modules)
+        run: ruff check .cursor/hooks
+
+      - name: Hook policy unit tests
+        run: python3 -m unittest discover -s tests -p "test_*.py" -v

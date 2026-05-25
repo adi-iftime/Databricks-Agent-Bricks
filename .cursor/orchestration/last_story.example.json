@@ -1,0 +1,7 @@
+{
+  "jira_key": "PROJ-123",
+  "title": "Example story for hook validation",
+  "acceptance_criteria": "- Pipeline runs in dev\n- Tests cover null and late-arriving facts",
+  "worker_agent": "data-engineering-agent",
+  "dependencies": ["PROJ-100"]
+}

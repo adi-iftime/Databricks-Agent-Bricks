@@ -1,0 +1,32 @@
+---
+description: Behavior, architecture, infra, and ops changes ship with aligned documentation updates—not only code.
+alwaysApply: true
+---
+
+# Mandatory documentation
+
+Behavior changes, architectural changes, infrastructure changes, and operational workflows must include documentation updates. Documentation should remain aligned with the implemented system to preserve maintainability, onboarding quality, and organizational knowledge.
+
+Apply this rule when:
+
+- modifying system behavior
+- updating architecture
+- exposing new APIs
+- modifying infrastructure
+- changing operational workflows
+- updating pipelines
+- creating production pull requests
+
+## Agent behavior
+
+- In the same change (or linked follow-up the user approves): update READMEs, runbooks, ADRs, OpenAPI/contract docs, comments at module boundaries, or internal wikis—whatever this repo already uses for that topic.
+- If no doc home exists: add the smallest appropriate doc in the established location (do not invent a large doc tree unless asked).
+- In PR descriptions, list **which docs** were updated or explicitly state “no doc delta” with rationale only when truly no audience-facing or operator-facing change occurred.
+
+## Example
+
+```text
+❌ BAD — New public API + deploy flag without changelog, README, or contract doc
+
+✅ GOOD — Same PR updates API spec or README “Usage”, notes rollout/rollback in runbook or PR description, ADR only if architecture decision changed
+```

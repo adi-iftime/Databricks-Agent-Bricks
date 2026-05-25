@@ -1,0 +1,31 @@
+---
+description: Production paths need logging, metrics, tracing where appropriate, checkpoints, and actionable errors so systems are diagnosable and operable.
+alwaysApply: true
+---
+
+# Observability required
+
+Production-ready systems must include observability mechanisms such as logging, metrics, monitoring, tracing, validation checkpoints, and actionable error handling. Systems should be diagnosable, measurable, and operationally maintainable.
+
+Apply this rule when:
+
+- implementing production services
+- creating APIs
+- modifying data pipelines
+- implementing streaming systems
+- deploying distributed systems
+- reviewing production readiness
+
+## Agent behavior
+
+- Add or extend structured logs with correlation/request/job identifiers; avoid logging secrets or full PII.
+- Expose meaningful metrics (latency, errors, throughput, backlog, lag) and traces where the stack supports them; document what to watch in rollout notes or runbooks when applicable.
+- Prefer explicit validation checkpoints on critical pipeline steps; surface errors with enough context for on-call action (not generic “failed” only).
+
+## Example
+
+```text
+❌ BAD — New service swallows exceptions, prints to stdout only, no request id, no error rate metric
+
+✅ GOOD — Structured logs + correlation id middleware, redacted payloads, error taxonomy, RED-style metrics or platform equivalent, trace propagation on outbound calls
+```

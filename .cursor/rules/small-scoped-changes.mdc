@@ -1,0 +1,30 @@
+---
+description: Prefer small incremental diffs and reviewable PRs—avoid mega-rewrites and broad multi-system changes unless explicitly planned and approved.
+alwaysApply: true
+---
+
+# Small scoped changes
+
+Implementation changes should remain small, incremental, and easy to review. Large-scale rewrites, oversized pull requests, and broad multi-system modifications should be avoided unless explicitly planned and approved.
+
+Apply this rule when:
+
+- implementing features
+- creating pull requests
+- reviewing implementation size
+- coordinating parallel work
+- validating production readiness
+
+## Agent behavior
+
+- Ship vertical slices or narrow layers per PR; if scope grows, split into stacked PRs with clear merge order instead of one huge diff.
+- For risky areas: feature flags, narrow interfaces, or scaffolding PRs first—then behavior—then cleanup—each reviewable on its own.
+- When coordinating parallel work: assign disjoint slices so “small” stays true in practice, not only in intent.
+
+## Example
+
+```text
+❌ BAD — One PR rewires auth, payments, and reporting “because they’re related” with 5k-line diff
+
+✅ GOOD — PR1 contract + flags, PR2 service A, PR3 service B, each < reasonable review budget with tests and rollback notes
+```

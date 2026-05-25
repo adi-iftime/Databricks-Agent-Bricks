@@ -1,0 +1,25 @@
+[project]
+name = "cursor-ai-sdlc-template"
+version = "1.0.0"
+description = "ML Operations Intelligence on Databricks with Cursor AI SDLC orchestration."
+readme = "README.md"
+requires-python = ">=3.11"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["mlops_intelligence*"]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.4.0",
+]
+
+[tool.ruff]
+target-version = "py311"
+src = [".cursor/hooks"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+
+[tool.ruff.lint.per-file-ignores]
+".cursor/hooks/*.py" = ["E402", "E501"]

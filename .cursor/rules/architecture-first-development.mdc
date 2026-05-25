@@ -1,0 +1,31 @@
+---
+description: Inspect existing architecture and reuse established patterns before coding; avoid novel frameworks or patterns without clear need.
+alwaysApply: true
+---
+
+# Architecture-first development
+
+Agents must inspect and understand the existing architecture before implementing changes. Existing patterns, abstractions, naming conventions, and module boundaries should be reused whenever possible. Architectural consistency should be prioritized over introducing unnecessary new patterns or frameworks.
+
+Apply this rule when:
+
+- starting new implementation work
+- analyzing unfamiliar codebases
+- modifying architecture
+- introducing new modules or services
+- planning implementation work
+- reviewing pull requests
+
+## Agent behavior
+
+- Before edits: read nearby modules, entry points, and similar features; note layering, DI/factory patterns, error and logging style, and test layout—then extend them.
+- Prefer incremental changes inside current boundaries; if a new pattern is required, state why existing ones fail and keep the smallest viable surface area.
+- In review: flag divergence from repo conventions and unnecessary parallel abstractions.
+
+## Example
+
+```text
+❌ BAD — New feature adds a second HTTP client stack, new folder layout, and different error types while the app already standardizes on one
+
+✅ GOOD — New feature follows existing package layout, reuses shared clients/types, extends current abstractions; new pattern only with short rationale and minimal footprint
+```

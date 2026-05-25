@@ -1,0 +1,20 @@
+{
+  "rules": [
+    {
+      "pattern": "repartition\\(\\s*1\\s*\\)",
+      "message": "repartition(1) is a performance foot-gun unless explicitly justified."
+    },
+    {
+      "pattern": "coalesce\\(\\s*1\\s*\\)",
+      "message": "coalesce(1) forces single partition; verify intent."
+    },
+    {
+      "pattern": "spark\\.catalog\\.(dropDatabase|dropTable|dropTempView)\\(",
+      "message": "Catalog drops in pipeline code are risky; restrict to tests or guard with explicit flags."
+    },
+    {
+      "pattern": "setLogLevel\\(\\s*[\"']OFF[\"']\\s*\\)",
+      "message": "Turning Spark logs fully OFF hurts observability."
+    }
+  ]
+}

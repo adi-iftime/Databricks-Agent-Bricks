@@ -1,0 +1,31 @@
+---
+description: Breaking schema/API/contract/infra changes ship with migration, compatibility checks, rollback, and downstream impact—prefer backward-compatible evolution.
+alwaysApply: true
+---
+
+# Backward compatibility
+
+Breaking schema changes, API changes, contract changes, or infrastructure changes must include migration strategies, compatibility validation, rollback plans, and downstream impact analysis. Backward compatibility should be preserved whenever possible.
+
+Apply this rule when:
+
+- modifying schemas
+- changing APIs
+- updating contracts
+- modifying infrastructure
+- evolving data models
+- reviewing production-impacting pull requests
+
+## Agent behavior
+
+- Default to additive, versioned, or feature-flagged rollouts; document **who** consumes the contract and what breaks if old clients remain.
+- Pair code with migrations, dual-write/read phases, or deprecation windows when the stack supports them; state how to validate (tests, shadow traffic, canary) and how to roll back.
+- In review: reject “big bang” breaks without an explicit migration path and owner for downstream systems.
+
+## Example
+
+```text
+❌ BAD — Rename JSON field / drop column / tighten API with no version bump, no migration, no rollback story
+
+✅ GOOD — Additive schema + backfill + read switch + monitor; API v2 or compatible extension; rollback = revert migration + flag off; PR lists impacted services and verification steps
+```
