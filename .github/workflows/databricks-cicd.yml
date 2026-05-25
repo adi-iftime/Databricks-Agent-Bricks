@@ -1,0 +1,80 @@
+name: Databricks CI/CD
+
+on:
+  pull_request:
+    branches: [main, master, dev]
+  push:
+    branches: [main, master, dev]
+  workflow_dispatch:
+
+concurrency:
+  group: databricks-cicd-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dev dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+  lint:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dev dependencies
+        run: pip install -e ".[dev]"
+
+      - name: Ruff check (hook modules)
+        run: ruff check .cursor/hooks
+
+  unit-test:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run unit tests
+        run: python3 -m unittest discover -s tests -p "test_*.py" -v
+
+  bundle-validate:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Bundle manifest structure check
+        run: python3 -m unittest tests.test_databricks_bundle -v
+
+      - name: Databricks bundle validate (requires auth)
+        run: |
+          echo "Live 'databricks bundle validate' enabled in SCRUM-122 after SCRUM-121 auth."
+          echo "Local: databricks bundle validate -t dev|staging|prod"
+
+  deploy:
+    needs: [lint, unit-test, bundle-validate]
+    if: false
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Deploy gated until SCRUM-121 (auth) and SCRUM-122 (validate in CI)."
