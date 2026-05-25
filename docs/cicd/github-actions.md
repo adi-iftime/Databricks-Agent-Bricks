@@ -19,7 +19,7 @@ ML Operations Intelligence delivery runs through [`.github/workflows/databricks-
 | `unit-test` | `unittest` under `tests/` |
 | `bundle-validate` | Manifest tests today; live CLI validate in SCRUM-122 |
 | `databricks-auth` | `databricks current-user me` using `DATABRICKS_HOST` + `DATABRICKS_TOKEN` repo secrets |
-| `deploy` | Disabled until SCRUM-122 validate gate and deploy stories |
+| `deploy` | Disabled here; dev auto-deploy in [databricks-deploy-dev.yml](../../.github/workflows/databricks-deploy-dev.yml) |
 
 ## Authentication
 

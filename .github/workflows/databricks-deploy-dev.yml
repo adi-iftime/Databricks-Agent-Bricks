@@ -1,0 +1,40 @@
+name: Databricks deploy (dev)
+
+on:
+  push:
+    branches: [dev]
+  workflow_dispatch:
+
+concurrency:
+  group: databricks-deploy-dev-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+  DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+
+jobs:
+  deploy-dev:
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Databricks CLI
+        uses: databricks/setup-cli@v0.267.0
+
+      - name: Log deployment context
+        run: |
+          echo "git_sha=${{ github.sha }}"
+          echo "ref=${{ github.ref }}"
+          echo "bundle=mlops_intelligence"
+          echo "target=dev"
+
+      - name: Validate bundle before deploy
+        run: databricks bundle validate -t dev
+
+      - name: Deploy bundle to dev
+        run: databricks bundle deploy -t dev
+
+      - name: Post-deploy smoke (placeholder)
+        run: echo "Post-deploy smoke hooks added in later stories (jobs/UC verification)."
