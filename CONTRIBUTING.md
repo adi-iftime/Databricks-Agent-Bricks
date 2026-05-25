@@ -1,6 +1,14 @@
 # Contributing
 
-This repository is a **Cursor AI configuration template**. Contributions should extend agents, rules, skills, hooks, orchestration policies, or framework tests—not sample application code.
+This repository hosts the **ML Operations Intelligence** platform and the **Cursor AI SDLC** framework. See [docs/architecture/repo-layout.md](docs/architecture/repo-layout.md) for boundaries.
+
+## Git workflow
+
+- **Integration branch:** `dev` — open feature PRs against `dev`.
+- **Production branch:** `main` — promote via PR from `dev` (or documented hotfix path).
+- **Feature branches:** `feature/<JIRA-KEY>-<slug>` — one story per PR.
+
+Full model, DAB mapping, and branch protection guidance: [docs/git-workflow.md](docs/git-workflow.md).
 
 ## Pull requests
 

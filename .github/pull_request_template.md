@@ -7,6 +7,11 @@ Fill every section; remove this comment block before opening the PR if you prefe
 
 <!-- One short paragraph: what changed and why. -->
 
+## Branch target
+
+- **Base branch:** <!-- `dev` for feature work, or `main` for hotfix/dev→main promotion -->
+- **Flow:** See [docs/git-workflow.md](../docs/git-workflow.md) — feature → `dev` → `main`
+
 ## Jira
 
 - **Story:** <!-- e.g. PROJ-123 — paste key and title -->

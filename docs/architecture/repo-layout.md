@@ -38,6 +38,10 @@ Deployment follows [Databricks Asset Bundles](https://docs.databricks.com/dev-to
 
 The repo started as **Databricks-Agent-Bricks** (Cursor template). Platform stories (SCRUM-103+) add production paths without deleting orchestration assets. Each PR maps to one Jira story and one ownership lane (`OWNERSHIP=` in Task prompts).
 
+## Git workflow
+
+Branching (`main` / `dev` / `feature/*`) and protection rules: [docs/git-workflow.md](../git-workflow.md).
+
 ## Related Jira epics
 
 - Epic 1 (SCRUM-103): GitHub structure — this document
