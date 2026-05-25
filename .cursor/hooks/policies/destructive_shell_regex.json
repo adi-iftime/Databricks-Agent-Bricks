@@ -1,0 +1,12 @@
+{
+  "block_command_regex": [
+    "terraform\\s+destroy",
+    "pulumi\\s+destroy",
+    "aws\\s+s3\\s+rm\\s+[^\\n]*--recursive",
+    "az\\s+storage\\s+blob\\s+delete",
+    "gcloud\\s+compute\\s+instances\\s+delete",
+    "chmod\\s+777\\s+/etc",
+    "rm\\s+-rf\\s+/\\s",
+    "rm\\s+-rf\\s+/\\b"
+  ]
+}

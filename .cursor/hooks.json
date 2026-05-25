@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "hooks": {
+    "postToolUse": [
+      {
+        "command": ".cursor/hooks/de_spark_quality_static.py",
+        "matcher": "^(Write|StrReplace)",
+        "timeout": 10,
+        "failClosed": false
+      },
+      {
+        "command": ".cursor/hooks/de_pr_quality_inject.py",
+        "matcher": "^Shell",
+        "timeout": 5,
+        "failClosed": false
+      },
+      {
+        "command": ".cursor/hooks/de_pipeline_tests_coach.py",
+        "matcher": "^(Write|StrReplace)",
+        "timeout": 10,
+        "failClosed": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+---
+description: Out-of-scope refactors need approval or their own story—no silent renames, restructures, format-only sweeps, or arch rewrites during feature work.
+alwaysApply: true
+---
+
+# No silent refactors
+
+Refactors outside the assigned implementation scope require explicit approval or dedicated stories. Agents should avoid introducing unrelated renames, restructures, formatting-only changes, or architectural rewrites during feature implementation.
+
+Apply this rule when:
+
+- implementing features
+- modifying existing systems
+- reviewing pull requests
+- validating implementation scope
+- coordinating parallel development work
+
+## Agent behavior
+
+- If a refactor is truly required to complete the task (e.g. unblock a type or test): keep it minimal, local, and say so in the PR description; otherwise stop and ask the user or open a separate story.
+- Treat wide renames, directory moves, formatter churn, and “cleanup while here” as **out of scope** unless the user explicitly approves them for this change.
+
+## Example
+
+```text
+❌ BAD — Ticket: add filter to list → rename 20 symbols, move packages, run Black on whole tree “for consistency”
+
+✅ GOOD — Ticket: add filter → touch list module + tests; optional tiny rename only if unavoidable, explained in PR
+```

@@ -1,0 +1,20 @@
+# Local orchestration locks and scratch files
+.cursor/orchestration/locks.json
+.cursor/tmp/
+.claude/orchestration/locks.json
+.claude/tmp/
+
+# Python bytecode (hook modules)
+**/__pycache__/
+*.py[cod]
+
+# Editable install / local tooling metadata
+*.egg-info/
+.venv/
+.pytest_cache/
+.ruff_cache/
+.env
+.env.*
+
+# OS noise
+.DS_Store

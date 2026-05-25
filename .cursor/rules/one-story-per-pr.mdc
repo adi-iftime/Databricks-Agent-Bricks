@@ -1,0 +1,32 @@
+---
+description: One Jira story or one tight objective per PR—focused diffs, easier review, fewer conflicts, clearer rollbacks and parallel work.
+alwaysApply: true
+---
+
+# One story per pull request
+
+Each pull request must address only one Jira story or one tightly related implementation objective. Changes should remain focused, isolated, and easy to review. Large multi-purpose pull requests should be avoided to reduce merge conflicts, improve traceability, simplify rollbacks, and enable parallel execution across agents.
+
+Apply this rule when:
+
+- creating pull requests
+- implementing Jira stories
+- decomposing implementation work
+- reviewing pull request scope
+- coordinating parallel agent execution
+- validating implementation boundaries
+
+## Agent behavior
+
+- Before expanding scope: split extra goals into follow-up PRs or stories; keep the current PR aligned to a single ticket or one clearly named objective in the title/description.
+- Prefer separate PRs for refactors, drive-by cleanups, or unrelated bugfixes unless the team explicitly accepts a bundled change with documented risk.
+
+## Example
+
+```text
+❌ BAD — one PR: PROJ-123 auth fix + PROJ-456 report tweak + dependency major bump + formatting sweep
+
+✅ GOOD — PR 1: PROJ-123 only (auth fix + its tests)
+         PR 2: PROJ-456 only (report tweak + its tests)
+         PR 3: dependency bump with release notes, or split by package if large
+```

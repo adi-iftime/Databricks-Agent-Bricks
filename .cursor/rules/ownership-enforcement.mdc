@@ -1,0 +1,30 @@
+---
+description: Stay inside module ownership and the assigned agent’s scope—avoid cross-domain edits unless explicitly required to reduce conflicts and drift.
+alwaysApply: true
+---
+
+# Ownership enforcement
+
+Agents must respect module ownership boundaries and avoid modifying areas owned by unrelated domains unless explicitly required. Work should remain aligned with the responsibilities of the assigned worker agent to reduce merge conflicts and preserve architectural clarity.
+
+Apply this rule when:
+
+- assigning implementation work
+- modifying source code
+- coordinating multi-agent execution
+- validating pull request scope
+- reviewing implementation boundaries
+
+## Agent behavior
+
+- Before edits: infer ownership from paths, CODEOWNERS, package boundaries, or team docs; if unclear, ask rather than guessing across domains.
+- If a change must cross boundaries (shared lib, contract): keep the smallest shared surface, coordinate in the PR description, and avoid “drive-by” edits in unrelated packages.
+- For multi-agent runs: serialize or split work so two agents do not churn the same ownership area without an explicit merge owner.
+
+## Example
+
+```text
+❌ BAD — Billing agent rewrites auth package “for convenience”; two agents reformat same owned module in parallel
+
+✅ GOOD — Billing change stays under billing/; shared proto change is one thin PR with both owners tagged; unrelated dirs untouched
+```

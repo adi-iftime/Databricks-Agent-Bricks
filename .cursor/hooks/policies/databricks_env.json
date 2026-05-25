@@ -1,0 +1,7 @@
+{
+  "allow_bundle_env_values": ["dev", "staging"],
+  "prod_workspace_host_regex": [
+    "adb-\\d+\\.\\d+\\.azuredatabricks\\.net.*\\bprod\\b",
+    "dbc-[a-f0-9-]+\\.cloud\\.databricks\\.com.*\\bprod\\b"
+  ]
+}

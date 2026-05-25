@@ -1,0 +1,31 @@
+---
+description: New deps, frameworks, or services need explicit justification—prefer what the repo already uses and avoid extra operational and security surface.
+alwaysApply: true
+---
+
+# Dependency justification
+
+New dependencies, libraries, frameworks, or services require explicit justification. Agents should prefer existing project dependencies and avoid introducing unnecessary external tools that increase operational complexity, security risk, maintenance burden, or architectural inconsistency.
+
+Apply this rule when:
+
+- adding new libraries
+- introducing frameworks
+- modifying build systems
+- updating infrastructure
+- reviewing pull requests
+- evaluating architecture changes
+
+## Agent behavior
+
+- Before adding a dependency: check for an in-tree or already-pinned equivalent; summarize **why** the new one is needed, **what** it replaces or unlocks, license and supply-chain notes, and approximate footprint (bundle size, runtime, ops).
+- Prefer patch-level or conservative upgrades within existing stacks; defer broad “latest everything” churn unless the user scoped it.
+- In PRs: list new packages/services in the description with rationale; call out duplicate capabilities (two HTTP clients, two date libs, etc.).
+
+## Example
+
+```text
+❌ BAD — Add left-pad-style micro-lib for one line; new SaaS for logging when the org already standardizes on one vendor
+
+✅ GOOD — Reuse stdlib or existing dependency; if new lib is required, PR states problem, alternatives considered, security/upgrade ownership, and removal plan if experiment fails
+```
