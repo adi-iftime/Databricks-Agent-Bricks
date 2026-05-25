@@ -48,9 +48,17 @@ Fill every section; remove this comment block before opening the PR if you prefe
 
 <!-- Other PRs, releases, migrations, config. -->
 
+## Unity Catalog impact
+
+<!-- Catalogs, schemas, tables, grants. Mark additive vs breaking. N/A if no UC change. -->
+
+## Databricks Asset Bundle
+
+<!-- `databricks.yml` / `resources/` changes, target, validate command. N/A if no bundle change. -->
+
 ## Rollout notes
 
-<!-- Deploy order, monitoring, rollback. -->
+<!-- Deploy order, monitoring, rollback (including UC/DAB revert steps). -->
 
 ## Documentation
 
