@@ -17,13 +17,23 @@ ML Operations Intelligence delivery runs through [`.github/workflows/databricks-
 | `setup` | Checkout and install Python dev dependencies |
 | `lint` | `ruff check .cursor/hooks` |
 | `unit-test` | `unittest` under `tests/` |
-| `bundle-validate` | Manifest tests today; live CLI validate in SCRUM-122 |
+| `bundle-validate` | Unit manifest tests + `databricks bundle validate -t dev` (requires repo secrets) |
 | `databricks-auth` | `databricks current-user me` using `DATABRICKS_HOST` + `DATABRICKS_TOKEN` repo secrets |
 | `deploy` | Disabled until SCRUM-122 validate gate and deploy stories |
 
 ## Authentication
 
 Repository secrets **`DATABRICKS_HOST`** and **`DATABRICKS_TOKEN`** — see [databricks-auth.md](databricks-auth.md).
+
+## Required status checks
+
+Before merging to `dev`, ensure these jobs pass:
+
+- `unit-test`
+- `databricks-auth`
+- `bundle-validate`
+
+Configure branch protection on `dev` to require the **Databricks CI/CD** workflow checks when secrets are configured.
 
 ## Concurrency
 
