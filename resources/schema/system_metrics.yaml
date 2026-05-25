@@ -1,0 +1,25 @@
+table: system_metrics
+catalog: mlops_intelligence_dev
+schema: bronze_ops
+format: delta
+partitioned_by:
+  - event_ts_date
+columns:
+  - name: metric_name
+    type: string
+    nullable: false
+  - name: metric_value
+    type: double
+    nullable: false
+  - name: host
+    type: string
+    nullable: true
+  - name: event_ts
+    type: timestamp
+    nullable: false
+  - name: tags
+    type: map<string,string>
+    nullable: true
+  - name: ingested_at
+    type: timestamp
+    nullable: false

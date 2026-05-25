@@ -1,0 +1,28 @@
+table: pipeline_runs
+catalog: mlops_intelligence_dev
+schema: bronze_ops
+format: delta
+partitioned_by:
+  - event_ts_date
+columns:
+  - name: run_id
+    type: string
+    nullable: false
+  - name: job_id
+    type: string
+    nullable: true
+  - name: status
+    type: string
+    nullable: false
+  - name: duration_sec
+    type: double
+    nullable: true
+  - name: cost_usd
+    type: double
+    nullable: true
+  - name: event_ts
+    type: timestamp
+    nullable: false
+  - name: ingested_at
+    type: timestamp
+    nullable: false
