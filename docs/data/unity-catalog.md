@@ -22,7 +22,14 @@ Catalog name aligns with the `dev` target in [`databricks.yml`](../../databricks
 
 Initial catalog and schemas: [`resources/sql/00_catalog.sql`](../../resources/sql/00_catalog.sql).
 
-Deploy via SQL warehouse or bundle SQL task (SCRUM-127+). When applying manually, substitute the catalog prefix for the target environment.
+Telemetry and ML observability tables:
+
+| SQL file | Tables |
+|----------|--------|
+| [`01_telemetry_tables.sql`](../../resources/sql/01_telemetry_tables.sql) | `pipeline_runs`, `system_metrics` |
+| [`02_ml_metrics_tables.sql`](../../resources/sql/02_ml_metrics_tables.sql) | `model_metrics`, `feature_store_metrics` |
+
+Apply via SQL warehouse or bundle SQL task. Run `00_catalog.sql` first, then numbered table files in order.
 
 ## Security
 
@@ -34,3 +41,4 @@ Deploy via SQL warehouse or bundle SQL task (SCRUM-127+). When applying manually
 
 - SCRUM-130 — catalog + schemas (this document)
 - SCRUM-131 — `pipeline_runs`, `system_metrics` tables
+- SCRUM-132 — `model_metrics`, `feature_store_metrics` tables

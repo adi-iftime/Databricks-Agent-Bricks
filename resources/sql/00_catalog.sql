@@ -1,8 +1,6 @@
 -- Unity Catalog foundation for ML Operations Intelligence (SCRUM-130)
--- Apply per DAB target; catalog name must match databricks.yml variable `catalog`.
--- Dev: mlops_intelligence_dev | Staging: mlops_intelligence_staging | Prod: mlops_intelligence_prod
+-- Dev catalog: mlops_intelligence_dev (see databricks.yml `dev` target)
 
--- Example for dev target (replace catalog prefix when running against staging/prod):
 CREATE CATALOG IF NOT EXISTS mlops_intelligence_dev
   COMMENT 'ML Operations Intelligence — development';
 
