@@ -1,7 +1,33 @@
-# Databricks Asset Bundle — placeholder (SCRUM-115)
-# Target configuration, variables, and job resources: SCRUM-125, SCRUM-126, SCRUM-127
+# ML Operations Intelligence — Databricks Asset Bundle (SCRUM-125)
+# Targets dev/staging/prod: SCRUM-126 | Jobs: SCRUM-127
 
 bundle:
   name: mlops_intelligence
 
-# Targets (dev / staging / prod) and resources are added in Epic 3 stories.
+include:
+  - resources/*.yml
+
+sync:
+  paths:
+    - .
+
+variables:
+  catalog:
+    description: Unity Catalog name for ML ops intelligence
+    default: mlops_intelligence
+  schema:
+    description: Default schema for platform tables
+    default: ops
+  workspace_root:
+    description: Workspace path prefix for bundle deployments
+    default: /Workspace/Users/${workspace.current_user}/.bundle/${bundle.name}/${bundle.target}
+
+targets:
+  default:
+    mode: development
+    default: true
+    workspace:
+      profile: dev
+    variables:
+      catalog: mlops_intelligence_dev
+      schema: ops
