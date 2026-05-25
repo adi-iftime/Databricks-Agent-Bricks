@@ -1,6 +1,6 @@
 # Unity Catalog RBAC — ML Operations Intelligence
 
-Dev catalog `mlops_intelligence_dev` uses **least-privilege service principals** so ingestion and agent workloads cannot be separated.
+Dev catalog `mlops_intelligence_dev` uses **least-privilege service principals** so ingestion and agent workloads remain **separated** by access boundary.
 
 ## Service principals
 
