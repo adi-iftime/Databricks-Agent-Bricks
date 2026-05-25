@@ -33,19 +33,3 @@ targets:
     variables:
       catalog: mlops_intelligence_dev
       schema: ops
-
-  staging:
-    mode: production
-    workspace:
-      profile: staging
-    variables:
-      catalog: mlops_intelligence_staging
-      schema: ops
-
-  prod:
-    mode: production
-    workspace:
-      profile: prod
-    variables:
-      catalog: mlops_intelligence_prod
-      schema: ops

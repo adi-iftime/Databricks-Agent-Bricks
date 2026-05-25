@@ -67,10 +67,6 @@ Minimum for CI validate (SCRUM-122):
 3. Run **Actions → Databricks CI/CD → Run workflow** (`workflow_dispatch`) and confirm `databricks-auth` passes.
 4. Revoke the old token in Databricks.
 
-## Staging / production
-
-Use **GitHub Environments** with environment-scoped secrets when staging/prod deploy is enabled (Epic 2 follow-on). Dev CI uses repository-level secrets today.
-
 ## Related stories
 
 - SCRUM-121 — auth wiring (this document)
