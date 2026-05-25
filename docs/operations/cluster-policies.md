@@ -21,13 +21,13 @@ Repository default is empty — jobs deploy without `policy_id` until your team 
 
 ## Job attachment
 
-Each job in `resources/jobs/*.job.yml` references:
+After `cluster_policy_id` is set on a target, add to each job `new_cluster` block in `resources/jobs/*.job.yml`:
 
 ```yaml
-policy_id: ${var.cluster_policy_id}
+policy_id: "${var.cluster_policy_id}"
 ```
 
-When `cluster_policy_id` is empty, remove or comment `policy_id` until the policy exists to avoid deploy errors.
+Do not add `policy_id` while the variable default is empty — bundle validate fails on empty policy references.
 
 ## Serverless
 

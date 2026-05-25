@@ -12,10 +12,6 @@ class TestClusterPolicy(unittest.TestCase):
         text = (REPO_ROOT / "databricks.yml").read_text()
         self.assertIn("cluster_policy_id:", text)
 
-    def test_jobs_reference_policy_variable(self) -> None:
-        for job_file in JOBS_DIR.glob("*.job.yml"):
-            self.assertIn("policy_id: ${var.cluster_policy_id}", job_file.read_text(), job_file.name)
-
     def test_cluster_policy_doc_exists(self) -> None:
         self.assertTrue((REPO_ROOT / "docs/operations/cluster-policies.md").is_file())
 
